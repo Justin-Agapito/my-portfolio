@@ -1,0 +1,15 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(php artisan *)",
+      "Bash(php -r *)",
+      "Bash(composer run *)",
+      "Bash(npx tsc *)",
+      "Bash(curl -sI http://localhost:8000/storage/images/Carl_Agapito.JPG)",
+      "Bash(curl -sI http://localhost:8000/storage/images/mood.jpg)",
+      "Bash(curl -sI http://localhost:8000/storage/images/mood1.jpg)",
+      "Bash(curl -sI http://localhost:8000/storage/images/oil-pastel.jpg)",
+      "Bash(vendor/bin/pint --dirty --format agent)"
+    ]
+  }
+}

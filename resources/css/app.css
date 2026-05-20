@@ -1,0 +1,488 @@
+@import 'tailwindcss';
+
+@import 'tw-animate-css';
+
+@source '../views';
+@source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
+
+@custom-variant dark (&:is(.dark *));
+
+@theme {
+    --font-sans:
+        'Instrument Sans', ui-sans-serif, system-ui, sans-serif,
+        'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol',
+        'Noto Color Emoji';
+
+    /* Portfolio typography — editorial display + UI body.
+     * The display face is set in Helvetica Light by default. When you need
+     * weight (e.g. bold project numerals), override `font-weight` at the
+     * element level rather than swapping the family. */
+    --font-display:
+        'Helvetica Neue Light', 'HelveticaNeue-Light', 'Helvetica Light',
+        'Helvetica Neue', Helvetica, 'Inter', Arial, sans-serif;
+    --font-body:
+        'Roboto', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+
+    /* Portfolio palette — warm earth, sampled directly from the user's mood
+     * imagery (golden window light, sandy minimalist interior). The accent
+     * lives in the burnt-amber/honey range rather than red so it feels
+     * pulled *from* the photos, not bolted on top of them. */
+    --color-portfolio-bg: #f2ebdf;          /* warm linen — wall light */
+    --color-portfolio-bg-soft: #e5dbc9;     /* deeper sand — panel backdrop */
+    --color-portfolio-ink: #1f1a14;         /* warm espresso — body text */
+    --color-portfolio-accent: #b8722c;      /* burnt amber — single accent */
+    --color-portfolio-accent-soft: #d9a26a; /* lifted honey — placeholders */
+    --color-portfolio-muted: #9b8a74;       /* driftwood — meta + labels */
+    --color-portfolio-rule: #ddd2be;        /* parchment — hairlines */
+
+    --radius-lg: var(--radius);
+    --radius-md: calc(var(--radius) - 2px);
+    --radius-sm: calc(var(--radius) - 4px);
+
+    --color-background: var(--background);
+    --color-foreground: var(--foreground);
+
+    --color-card: var(--card);
+    --color-card-foreground: var(--card-foreground);
+
+    --color-popover: var(--popover);
+    --color-popover-foreground: var(--popover-foreground);
+
+    --color-primary: var(--primary);
+    --color-primary-foreground: var(--primary-foreground);
+
+    --color-secondary: var(--secondary);
+    --color-secondary-foreground: var(--secondary-foreground);
+
+    --color-muted: var(--muted);
+    --color-muted-foreground: var(--muted-foreground);
+
+    --color-accent: var(--accent);
+    --color-accent-foreground: var(--accent-foreground);
+
+    --color-destructive: var(--destructive);
+    --color-destructive-foreground: var(--destructive-foreground);
+
+    --color-border: var(--border);
+    --color-input: var(--input);
+    --color-ring: var(--ring);
+
+    --color-chart-1: var(--chart-1);
+    --color-chart-2: var(--chart-2);
+    --color-chart-3: var(--chart-3);
+    --color-chart-4: var(--chart-4);
+    --color-chart-5: var(--chart-5);
+
+    --color-sidebar: var(--sidebar);
+    --color-sidebar-foreground: var(--sidebar-foreground);
+    --color-sidebar-primary: var(--sidebar-primary);
+    --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+    --color-sidebar-accent: var(--sidebar-accent);
+    --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+    --color-sidebar-border: var(--sidebar-border);
+    --color-sidebar-ring: var(--sidebar-ring);
+}
+
+/* ----- Blended scrollbar -----------------------------------------------
+ * Uses the portfolio palette so the track and thumb disappear into the
+ * page rather than looking like a browser chrome element. WebKit gets
+ * the thin thumb treatment; Firefox uses the standard scrollbar-color. */
+:root {
+    scrollbar-width: thin;
+    scrollbar-color: var(--color-portfolio-rule) transparent;
+}
+
+::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+}
+::-webkit-scrollbar-track {
+    background: transparent;
+}
+::-webkit-scrollbar-thumb {
+    background-color: var(--color-portfolio-rule);
+    border-radius: 999px;
+    border: 2px solid transparent;
+    background-clip: padding-box;
+    transition: background-color 300ms ease;
+}
+::-webkit-scrollbar-thumb:hover {
+    background-color: var(--color-portfolio-muted);
+}
+
+/* ----- Dark mode portfolio tokens ------------------------------------
+ * A warm dark palette that stays in the same amber/earth family — no
+ * blue-tinted dark mode, just the same hues shifted to deep charcoal. */
+.dark {
+    --color-portfolio-bg:       #181510;   /* deep charcoal */
+    --color-portfolio-bg-soft:  #221e18;   /* slightly lifted for panels */
+    --color-portfolio-ink:      #f0e8dc;   /* warm cream — reversed from light */
+    --color-portfolio-accent:   #d4834a;   /* amber lifted slightly for dark bg */
+    --color-portfolio-accent-soft: #a85f2c;
+    --color-portfolio-muted:    #7a6e60;   /* same driftwood, stays readable */
+    --color-portfolio-rule:     #2e2720;   /* subtle dark hairline */
+}
+
+/* Scrollbar colours in dark mode */
+.dark {
+    scrollbar-color: var(--color-portfolio-rule) transparent;
+}
+
+:root {
+    --background: oklch(1 0 0);
+    --foreground: oklch(0.145 0 0);
+    --card: oklch(1 0 0);
+    --card-foreground: oklch(0.145 0 0);
+    --popover: oklch(1 0 0);
+    --popover-foreground: oklch(0.145 0 0);
+    --primary: oklch(0.205 0 0);
+    --primary-foreground: oklch(0.985 0 0);
+    --secondary: oklch(0.97 0 0);
+    --secondary-foreground: oklch(0.205 0 0);
+    --muted: oklch(0.97 0 0);
+    --muted-foreground: oklch(0.556 0 0);
+    --accent: oklch(0.97 0 0);
+    --accent-foreground: oklch(0.205 0 0);
+    --destructive: oklch(0.577 0.245 27.325);
+    --destructive-foreground: oklch(0.577 0.245 27.325);
+    --border: oklch(0.922 0 0);
+    --input: oklch(0.922 0 0);
+    --ring: oklch(0.87 0 0);
+    --chart-1: oklch(0.646 0.222 41.116);
+    --chart-2: oklch(0.6 0.118 184.704);
+    --chart-3: oklch(0.398 0.07 227.392);
+    --chart-4: oklch(0.828 0.189 84.429);
+    --chart-5: oklch(0.769 0.188 70.08);
+    --radius: 0.625rem;
+    --sidebar: oklch(0.985 0 0);
+    --sidebar-foreground: oklch(0.145 0 0);
+    --sidebar-primary: oklch(0.205 0 0);
+    --sidebar-primary-foreground: oklch(0.985 0 0);
+    --sidebar-accent: oklch(0.97 0 0);
+    --sidebar-accent-foreground: oklch(0.205 0 0);
+    --sidebar-border: oklch(0.922 0 0);
+    --sidebar-ring: oklch(0.87 0 0);
+}
+
+.dark {
+    --background: oklch(0.145 0 0);
+    --foreground: oklch(0.985 0 0);
+    --card: oklch(0.145 0 0);
+    --card-foreground: oklch(0.985 0 0);
+    --popover: oklch(0.145 0 0);
+    --popover-foreground: oklch(0.985 0 0);
+    --primary: oklch(0.985 0 0);
+    --primary-foreground: oklch(0.205 0 0);
+    --secondary: oklch(0.269 0 0);
+    --secondary-foreground: oklch(0.985 0 0);
+    --muted: oklch(0.269 0 0);
+    --muted-foreground: oklch(0.708 0 0);
+    --accent: oklch(0.269 0 0);
+    --accent-foreground: oklch(0.985 0 0);
+    --destructive: oklch(0.396 0.141 25.723);
+    --destructive-foreground: oklch(0.637 0.237 25.331);
+    --border: oklch(0.269 0 0);
+    --input: oklch(0.269 0 0);
+    --ring: oklch(0.439 0 0);
+    --chart-1: oklch(0.488 0.243 264.376);
+    --chart-2: oklch(0.696 0.17 162.48);
+    --chart-3: oklch(0.769 0.188 70.08);
+    --chart-4: oklch(0.627 0.265 303.9);
+    --chart-5: oklch(0.645 0.246 16.439);
+    --sidebar: oklch(0.205 0 0);
+    --sidebar-foreground: oklch(0.985 0 0);
+    --sidebar-primary: oklch(0.985 0 0);
+    --sidebar-primary-foreground: oklch(0.985 0 0);
+    --sidebar-accent: oklch(0.269 0 0);
+    --sidebar-accent-foreground: oklch(0.985 0 0);
+    --sidebar-border: oklch(0.269 0 0);
+    --sidebar-ring: oklch(0.439 0 0);
+}
+
+@layer base {
+    * {
+        @apply border-border;
+    }
+
+    body {
+        @apply bg-background text-foreground;
+    }
+
+    /* Smooth dark/light mode crossfade on toggle. Only colour properties
+     * transition — layout and typography stay instant. */
+    html {
+        transition:
+            background-color 700ms cubic-bezier(0.04, 0.6, 0.1, 1),
+            color 700ms cubic-bezier(0.04, 0.6, 0.1, 1);
+    }
+
+    /* Smooth in-page scrolling for portfolio anchor nav. */
+    html {
+        scroll-behavior: smooth;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+        html {
+            scroll-behavior: auto;
+        }
+    }
+}
+
+@layer utilities {
+    /* Oversized editorial numerals (01, 02, 03…). Scales down on mobile to
+       prevent horizontal overflow at the 360px minimum viewport. */
+    .portfolio-numeral {
+        font-family: var(--font-display);
+        font-weight: 700;
+        line-height: 0.85;
+        letter-spacing: -0.04em;
+        font-size: clamp(5rem, 18vw, 14rem);
+    }
+
+    /* Hairline divider that mirrors the editorial reference. */
+    .portfolio-rule {
+        border-color: var(--color-portfolio-rule);
+    }
+
+    /* Divider color used with Tailwind's `divide-x` between panel columns. */
+    .portfolio-divide > :not([hidden]) ~ :not([hidden]) {
+        border-color: var(--color-portfolio-rule);
+    }
+
+    /* ----- Hero carousel motion ------------------------------------------
+     * Three animations compose the slide entry: a typographic mask-reveal
+     * that wipes the wordmark up from its baseline, a soft fade for meta
+     * blocks, and a gentle vertical drift on labels (parallax-lite). All
+     * are short, easing on a Swiss-feeling cubic — no bouncing, no
+     * overshoot. Animations are bound to `[data-active]` so they only run
+     * on the currently-visible slide. */
+    @keyframes portfolio-mask-up {
+        from {
+            transform: translateY(110%);
+            opacity: 0;
+        }
+        to {
+            transform: translateY(0);
+            opacity: 1;
+        }
+    }
+    @keyframes portfolio-fade-in {
+        from { opacity: 0; }
+        to   { opacity: 1; }
+    }
+    @keyframes portfolio-drift-up {
+        from {
+            transform: translateY(14px);
+            opacity: 0;
+        }
+        to {
+            transform: translateY(0);
+            opacity: 1;
+        }
+    }
+
+    .portfolio-mask {
+        /* Hides only the *top* edge as the line rises into view; the bottom
+         * stays open so descenders (g, y, p, j) don't get clipped. Padding
+         * gives those tails room to live inside the box. */
+        overflow: hidden;
+        display: inline-block;
+        vertical-align: top;
+        padding-bottom: 0.22em;
+        margin-bottom: -0.22em;
+    }
+    .portfolio-mask > * {
+        display: inline-block;
+    }
+
+    /* Active-slide motion. Stagger via per-element delays inline. */
+    [data-slide][data-active='true'] .portfolio-mask > * {
+        animation: portfolio-mask-up 1100ms cubic-bezier(0.2, 0.7, 0.1, 1) both;
+    }
+    [data-slide][data-active='true'] .portfolio-fade {
+        animation: portfolio-fade-in 900ms ease-out both;
+    }
+    [data-slide][data-active='true'] .portfolio-drift {
+        animation: portfolio-drift-up 900ms cubic-bezier(0.2, 0.7, 0.1, 1) both;
+    }
+
+    /* ----- Wordmark marquee ---------------------------------------------
+     * The hero wordmark scrolls horizontally, left-to-right, on an infinite
+     * loop. We render the phrase twice back-to-back; translating the wrapper
+     * from -50% → 0 produces a seamless loop because the second copy slides
+     * exactly into the first's starting position. Long duration + linear
+     * easing = calm parade, not a ticker. Pauses when the slide is inactive
+     * or the user prefers reduced motion. */
+    @keyframes portfolio-wordmark-ltr {
+        from { transform: translateX(-50%); }
+        to   { transform: translateX(0); }
+    }
+
+    .portfolio-wordmark {
+        display: flex;
+        width: max-content;
+        /* Slow, meditative scroll — 72s feels like a ribbon rather than a
+         * ticker. Opacity starts at 0 and fades to 1 over the first ~3s so
+         * the marquee breathes in instead of appearing mid-flight. */
+        animation:
+            portfolio-wordmark-ltr 72s linear infinite,
+            portfolio-fade-in 3000ms cubic-bezier(0.04, 0.6, 0.1, 1) both;
+        animation-delay: 0ms, 600ms;
+        will-change: transform, opacity;
+        opacity: 0;
+    }
+
+    [data-slide][data-active='false'] .portfolio-wordmark {
+        animation-play-state: paused;
+    }
+
+    [data-slide]:hover .portfolio-wordmark,
+    [data-slide]:focus-within .portfolio-wordmark {
+        animation-play-state: paused;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+        .portfolio-wordmark {
+            animation: none;
+            transform: translateX(0);
+        }
+    }
+
+    /* ----- Paired slide motion -------------------------------------------
+     * For a premium crossfade, both slides participate: the incoming one
+     * drifts *in* from a small offset while the outgoing one drifts *out*
+     * the opposite direction. Distances stay short (≤ 4vw) so it reads as
+     * editorial inflection, not a kinetic slider. Easing is the same long
+     * cubic on both halves so they feel like one continuous motion. */
+    @keyframes portfolio-slide-in-right {
+        from { transform: translateX(4vw); opacity: 0; }
+        to   { transform: translateX(0);   opacity: 1; }
+    }
+    @keyframes portfolio-slide-in-left {
+        from { transform: translateX(-4vw); opacity: 0; }
+        to   { transform: translateX(0);    opacity: 1; }
+    }
+    @keyframes portfolio-slide-out-left {
+        from { transform: translateX(0);    opacity: 1; }
+        to   { transform: translateX(-4vw); opacity: 0; }
+    }
+    @keyframes portfolio-slide-out-right {
+        from { transform: translateX(0);   opacity: 1; }
+        to   { transform: translateX(4vw); opacity: 0; }
+    }
+
+    /* Active slide — drifting in from the appropriate side. */
+    [data-slide][data-active='true'][data-direction='forward'] {
+        animation: portfolio-slide-in-right 900ms cubic-bezier(0.22, 0.61, 0.36, 1) both;
+    }
+    [data-slide][data-active='true'][data-direction='reverse'] {
+        animation: portfolio-slide-in-left 900ms cubic-bezier(0.22, 0.61, 0.36, 1) both;
+    }
+
+    [data-slide][data-leaving='true'][data-direction='forward'] {
+        animation: portfolio-slide-out-left 900ms cubic-bezier(0.22, 0.61, 0.36, 1) both;
+    }
+    [data-slide][data-leaving='true'][data-direction='reverse'] {
+        animation: portfolio-slide-out-right 900ms cubic-bezier(0.22, 0.61, 0.36, 1) both;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+        [data-slide][data-active='true'] .portfolio-mask > *,
+        [data-slide][data-active='true'] .portfolio-fade,
+        [data-slide][data-active='true'] .portfolio-drift,
+        [data-slide][data-active='true'][data-direction='forward'],
+        [data-slide][data-active='true'][data-direction='reverse'],
+        [data-slide][data-leaving='true'] {
+            animation: none;
+        }
+    }
+
+    /* ----- Scroll-entrance slow-pop -------------------------------------
+     * Elements tagged [data-enter] start invisible, slightly scaled down
+     * and shifted up. When they scroll into the viewport the
+     * IntersectionObserver in React adds [data-visible], which fires the
+     * animation. The result is a calm, premium "materialise from below"
+     * — not a bounce, not a snap, just a slow confident pop.
+     *
+     * Stagger is applied via inline --enter-delay on each element so the
+     * children of a section arrive in sequence without extra JS. */
+    @keyframes portfolio-enter {
+        from {
+            opacity: 0;
+            transform: translateY(16px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    /* `will-change` removed from the resting state — holding 13+ compositor
+     * layers in GPU memory permanently was the main source of scroll lag.
+     * The browser promotes the layer automatically when the animation fires
+     * and demotes it cleanly when it finishes. */
+    [data-enter] {
+        opacity: 0;
+    }
+
+    [data-enter][data-visible] {
+        animation: portfolio-enter 2600ms cubic-bezier(0.04, 0.6, 0.1, 1) both;
+        animation-delay: var(--enter-delay, 0ms);
+    }
+
+    /* ----- Status dot glow -----------------------------------------------
+     * The "Available for work" dot pulses with an amber box-shadow so it
+     * reads as a live indicator rather than a static bullet. Two layers:
+     * a tight inner glow and a softer outer bloom that breathes in/out.
+     * Subtle enough to stay premium, noticeable enough to draw the eye. */
+    @keyframes portfolio-glow-pulse {
+        0%, 100% {
+            box-shadow:
+                0 0 0 0 color-mix(in srgb, var(--color-portfolio-accent) 70%, transparent),
+                0 0 8px 2px color-mix(in srgb, var(--color-portfolio-accent) 40%, transparent);
+        }
+        50% {
+            box-shadow:
+                0 0 0 5px color-mix(in srgb, var(--color-portfolio-accent) 0%, transparent),
+                0 0 18px 6px color-mix(in srgb, var(--color-portfolio-accent) 25%, transparent);
+        }
+    }
+
+    .portfolio-status-dot {
+        animation: portfolio-glow-pulse 2400ms cubic-bezier(0.4, 0, 0.6, 1) infinite;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+        .portfolio-status-dot { animation: none; }
+    }
+
+    /* Nav entrance — fades in from a few px above on page load.
+     * Slightly slower than content so it feels like it settles last. */
+    @keyframes portfolio-nav-enter {
+        from {
+            opacity: 0;
+            transform: translateY(-10px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    .portfolio-nav-enter {
+        animation: portfolio-nav-enter 2200ms cubic-bezier(0.04, 0.6, 0.1, 1) both;
+        animation-delay: 500ms;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+        [data-enter] {
+            opacity: 1;
+        }
+        [data-enter][data-visible] {
+            animation: none;
+        }
+        .portfolio-nav-enter {
+            animation: none;
+        }
+    }
+}

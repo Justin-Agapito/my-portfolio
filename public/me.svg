@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Placeholder cut-out silhouette. Swap this file with your transparent PNG/SVG
+  (same path: public/me.svg, or update the import in resources/js/pages/welcome.tsx).
+  Designed for a no-background photo so it sits on the off-white page without a frame.
+-->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 520" fill="none">
+  <g fill="#111111" opacity="0.92">
+    <!-- head -->
+    <circle cx="200" cy="140" r="84"/>
+    <!-- shoulders / torso -->
+    <path d="M64 520 C 64 380, 124 304, 200 304 C 276 304, 336 380, 336 520 Z"/>
+  </g>
+  <!-- subtle inner highlight to imply a cut-out portrait -->
+  <g fill="#FAFAFA" opacity="0.08">
+    <ellipse cx="178" cy="118" rx="22" ry="30"/>
+    <path d="M132 340 C 160 320, 240 320, 268 340 L 256 380 C 232 366, 168 366, 144 380 Z"/>
+  </g>
+</svg>
