@@ -1,0 +1,16 @@
+services:
+    - type: web
+      name: portfolio
+      runtime: php
+      plan: free
+      buildCommand: './render-build.sh'
+      startCommand: 'vendor/bin/heroku-php-apache2 public/'
+      envVars:
+          - key: APP_KEY
+            generateValue: true
+          - key: APP_ENV
+            value: production
+          - key: APP_DEBUG
+            value: false
+          - key: LOG_CHANNEL
+            value: stderr
